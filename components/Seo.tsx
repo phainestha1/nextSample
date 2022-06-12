@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 
 interface SeoProps {
-  title: String;
+  title: string | string[] | undefined;
 }
 
 export default function Seo({ title }: SeoProps) {

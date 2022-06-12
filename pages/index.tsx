@@ -2,20 +2,18 @@ import { useRouter } from "next/router";
 import Seo from "../components/Seo";
 
 export default function Home({ results }: any) {
+  // Variables
   const router = useRouter();
+
+  // Handling functions
   const onClick = (id: number, title: string) => {
-    router.push(
-      {
-        pathname: `/movies/${id}`,
-        query: {
-          id,
-          title,
-        },
-      },
-      `/movies/${id}`
-    );
+    const pathname = `/movies/${id}`;
+    const query = { id, title };
+
+    router.push({ pathname, query }, pathname);
   };
 
+  // View Body
   return (
     <div>
       <Seo title="Home" />
@@ -33,12 +31,7 @@ export default function Home({ results }: any) {
 
 export async function getServerSideProps() {
   const response = await fetch("http://localhost:3000/api/movies");
-
   const { results } = await response.json();
 
-  return {
-    props: {
-      results,
-    },
-  };
+  return { props: { results } };
 }
